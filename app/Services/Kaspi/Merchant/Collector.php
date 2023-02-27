@@ -2,8 +2,6 @@
 
 namespace App\Services\Kaspi\Merchant;
 
-use App\Models\City;
-use App\Models\Merchant;
 use Illuminate\Support\Facades\Http;
 
 class Collector
@@ -15,9 +13,9 @@ class Collector
 
     public function handle()
     {
-        preg_match_all('/\d{6,9}/', $this->link, $output_array);
+        preg_match_all('/\d{6,9}/', $this->link, $output);
 
-        [$id, $cityId] = array_shift($output_array);
+        [$id, $cityId] = array_shift($output);
 
         $response = Http::contentType('application/json; charset=UTF-8')
             ->withHeaders(['Referer' => $this->link])
