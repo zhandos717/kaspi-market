@@ -2,12 +2,10 @@
 
 namespace App\Orchid\Screens\Kaspi;
 
-use App\Services\Kaspi\Merchant\Collector;
+use App\Services\Kaspi\Offer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Repository;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
 use Orchid\Support\Facades\Layout;
@@ -22,7 +20,7 @@ class MerchantScreen extends Screen
             return [];
         }
 
-        $data = (new Collector($item['url'], $item['city_id']))->handle();
+        $data = (new Offer($item['url'], $item['city_id']))->handle();
 
         return [
             'table' => $data
