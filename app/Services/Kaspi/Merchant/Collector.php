@@ -19,19 +19,16 @@ class Collector
 
         [$id, $cityId] = array_shift($output_array);
 
-
-        $response = Http::contentType('application/json; charset=UTF-8')->
-        withHeaders([
-            'Referer' => $this->link
-        ])->
-        post('https://kaspi.kz/yml/offer-view/offers/' . $id, [
-            "cityId" => $this->cityId ?? $cityId,
-            "id" => (string)$id,
-            "merchantUID" => "",
-            "limit" => 64,
-            "page" => 0,
-            "sort" => true
-        ]);
+        $response = Http::contentType('application/json; charset=UTF-8')
+            ->withHeaders(['Referer' => $this->link])
+            ->post('https://kaspi.kz/yml/offer-view/offers/' . $id, [
+                "cityId" => $this->cityId ?? $cityId,
+                "id" => (string)$id,
+                "merchantUID" => "",
+                "limit" => 64,
+                "page" => 0,
+                "sort" => true
+            ]);
 
         return array_filter(
             $response->json()['offers'],

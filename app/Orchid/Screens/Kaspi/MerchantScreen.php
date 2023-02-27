@@ -18,14 +18,14 @@ class MerchantScreen extends Screen
     {
         $item = \Cache::get('item');
 
-        if(empty($item)){
+        if (empty($item)) {
             return [];
         }
 
-        $data = (new Collector($item['url'],$item['city_id']))->handle();
+        $data = (new Collector($item['url'], $item['city_id']))->handle();
 
         return [
-            'table'   => $data
+            'table' => $data
         ];
     }
 
@@ -33,10 +33,12 @@ class MerchantScreen extends Screen
     {
         return 'Kaspi продавцы';
     }
+
     public function description(): ?string
     {
         return 'Данные парсинга';
     }
+
     public function commandBar(): iterable
     {
         return [
@@ -46,6 +48,7 @@ class MerchantScreen extends Screen
                 ->icon('plus'),
         ];
     }
+
     public function layout(): iterable
     {
         return [
@@ -57,7 +60,7 @@ class MerchantScreen extends Screen
                     ->render(fn($data) => $data['merchantName']),
 
                 TD::make('price', 'Цена')
-                   ->render(fn($data) => number_format($data['price'], 2)),
+                    ->render(fn($data) => number_format($data['price'], 2)),
             ]),
 
             Layout::modal(
@@ -70,8 +73,7 @@ class MerchantScreen extends Screen
 
                     Input::make('city_id')
                         ->title('city')
-                        ->placeholder('710000000')
-                        ->required(),
+                        ->placeholder('710000000'),
                 ])
             )->title('Введите данные для получения цен'),
         ];
@@ -79,12 +81,9 @@ class MerchantScreen extends Screen
 
     public function showToast(Request $request)
     {
-
-
-
-        \Cache::set('item',[
-            'url'=>$request->url,
-            'city_id'=>$request->city_id,
+        \Cache::set('item', [
+            'url'     => $request->url,
+            'city_id' => $request->city_id,
         ]);
     }
 }
